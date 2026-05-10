@@ -81,12 +81,18 @@ Modifying context_A's entry CANNOT affect context_B's entry.
 ### 2. Precise Word Control (정확한 단어 제어)
 
 ```
-Optimization trace:
-  iter  0: swim_logit = 11.30  (rank 13)
-  iter  7: swim_logit = 14.79  (rank ~5)
-  iter 51: swim_logit = 17.14  (rank ~3)
-  iter 93: swim_logit = 21.08  (rank 2, gap=0.87 to #1)
-  +contrastive 2 iter: swim=21.16 > play=20.66  → SWIM IS #1!
+Phase 1: Maximize swim logit (swim만 올리기, 100 iterations)
+  iter  0: swim = 11.30  (rank 13)
+  iter  7: swim = 14.79  (rank ~5)
+  iter 51: swim = 17.14  (rank ~3)
+  iter 93: swim = 21.08  (rank 2, gap=0.87 to #1 "play")
+
+Phase 2: Contrastive (swim↑ + play↓ 동시 최적화)
+  iter  0: swim=21.57, play=21.81  margin=-0.24  (gap 거의 닫힘)
+  iter  1: swim=21.16, play=20.66  margin=+0.50  → SWIM IS #1!
+
+= Contrastive 단 2회만에 1위 역전 달성!
+  Total: 100 + 2 = 102 iterations (gradient-free, no backprop)
 ```
 
 ### 3. Context-Hash Isolation (맥락 해시 격리)
