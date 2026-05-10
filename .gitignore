@@ -1,0 +1,33 @@
+# Large binary files (download separately)
+weights/*.bin
+weights/*.npy
+weights/*.raw
+weights/*.txt
+models/*.gguf
+models/*.bin
+models/*.alpha
+
+# Build artifacts
+*/build/
+*.exe
+*.dll
+*.obj
+*.lib
+*.exp
+*.pdb
+*.ilk
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+
+# IDE
+.vs/
+.vscode/
+*.suo
+*.user
+
+# Temp
+fusion_debug.txt
+*.log
